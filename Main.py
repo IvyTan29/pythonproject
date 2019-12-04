@@ -33,75 +33,72 @@ while use:
     pause() 
     clear()
 
-    ans = input ("\nAre you new to this enlistment system? (y/n) ")
+    enlistment.LogInPage()
 
-    while not(ans.lower() == 'y' or ans.lower() == 'n'):
-        print ("Invalid Input! Try again.")
-        ans = input ("Are you new to this enlistment system? (y/n) ")
+    menu = True
+    while menu:   
+        clear()
 
-    idnumber = input ("Enter ID Number: ")
-    password = input ("Enter Password: ")
+        print ("\t\t\tMenu")
+        print ("\t\t[1] View All Classes")
 
-    isFound = False
-    index = -1
-    i = 0
-    for i in range(len(enlistment.getUsers())):
-        if (enlistment.getUsers()[i].getIDNumber() == idnumber):
-            isFound = True
-            index = i
-
-    if (isFound):
-        print ("\nThe system detected that your ID number have already been registered.")
-        ans = 'g' #any char would do as long as it is not y or n
-
-    if (not isFound and ans == 'n'):
-        print ("\nThe system detected that your ID number have not been registered.")
-        ans = 'y'
-        print ("Proceed to the initial registration part.")
-
-    if (ans.lower() == 'y'):
-        usertype = input ("\nAre you an admin or student? (a/s) ")
-
-        while not(usertype.lower() == 'a' or usertype.lower() == 's'):
-            print ("Invalid Input! Try again.")
-            usertype = input ("Are you an admin or student? (a/s) ")
-
-        if (usertype.lower() == 'a'):
-            user = Admin (idnumber, password)
-            index = len(enlistment.getUsers())
-            enlistment.addUser (user)
-        else:
-            user = Student (idnumber, password)
-            index = len(enlistment.getUsers())
-            enlistment.addUser (user)
-
-    elif (ans.lower() == 'n'):
-        while not enlistment.logIn(idnumber,password, index):
-            print ("\nPassword and ID Number does not match")
-            password = input ("Retype Password: ")
         
+        if (isinstance(enlistment.getCurrentUser(),Admin)):
+            print ("\t\t[2] Add Class")
+            print ("\t\t[3] Remove Class")
+            admin_dict = {2 : enlistment.getCurrentUser().addClass, 3 : enlistment.getCurrentUser().removeClass, 1: enlistment.viewClasses, 4: enlistment.LogInPage}
+        elif (isinstance(enlistment.getCurrentUser(),Student)):
+            print ("\t\t[2] Take Class")
+            print ("\t\t[3] Drop Class")
+            student_dict = {2 : enlistment.getCurrentUser().takeClass, 3 : enlistment.getCurrentUser().dropClass,1: enlistment.viewClasses, 4: enlistment.LogInPage}
+            
+        print ("\t\t[4] Log-Out")
+        print ("\t\t[5] Exit")
+
+        ans = input("Choice of action: ")
+
+        while not(ans >= '1' and ans <= '5'):
+            print ("Invalid Input! Try again.")
+            ans = input("Choice of action: ")
+
+        clear()
+
+        if (ans == '5'):
+            menu = False
+
+        elif (isinstance(enlistment.getCurrentUser(),Student) and (ans == '2' or ans == '3')):
+            enlistment.viewClasses()
+            choice =print ("\nChoose classes: ")
+
+            while not(ans >= '1' and ans <= str(len(enlistment.getClasses()))):
+                print ("Invalid Input! Try again.")
+                choice = print ("\nChoose classes: ")
+
+            student_dict[int(ans)](enlistment.getClasses()[int(choice-1)])
+            
+        elif (isinstance(enlistment.getCurrentUser(),Admin)):
+            admin_dict[int(ans)]()
+
+        elif (isinstance(enlistment.getCurrentUser(),Student)):
+            student_dict[int(ans)]()
+
+        pause()
+
     clear()
 
+    ans = input ("Are you going to exit or restart the enlistment system? (e/r) ")
 
+    while not(ans.lower() == 'e' or ans.lower() == 'r'):
+            print ("Invalid Input! Try again.")
+            ans = input ("Are you going to exit or restart the enlistment system? (e/r) ")
 
-
-
-
-
-
-
-
-    #insert here log out 
-
-
-    ans = input ("Are you going to exit the enlistment system? (y/n) ")
     clear()
 
     for i in range(3,0,-1):
-        if (ans == 'y'):
+        if (ans == 'e'):
             print ("\t\t\tExiting... ",i, end = '')
             use = False
-        elif (ans == 'n'):
+        elif (ans == 'r'):
             print ("\t\t\tRestarting...",i, end = '')
             use = True
         sleep(1)

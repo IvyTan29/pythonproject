@@ -26,4 +26,5 @@ class Admin(User):
 
         return subject
 
-    #def removeClass (self):
+    def removeClass (self):
+        print("Hello")
