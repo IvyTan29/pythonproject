@@ -1,0 +1,8 @@
+print (".--. .    .-. .   .  .---.     .          .                   .  ")
+print ("|   :|   (   )|   |  |         |   o     _|_                 _|_ ")
+print ("|   ||    `-. |   |  |--- .--. |   .  .--.|  .--.--. .-. .--. |  ")
+print ("|   ;|   (   ):   ;  |    |  | |   |  `--.|  |  |  |(.-' |  | |  ")
+print ("'--' '---'`-'  `-'   '---''  `-`--' `-`--'`-''  '  `-`--''  `-`-'")
+print ("\n\t\t\tPlease Log - In")
+idnumber = input ("Enter idnumber: ")
+password = input ("Enter password: ")
