@@ -18,8 +18,11 @@ class Class:
     def addStudent (self, student):
         self.students.append(student)
 
-    def addStudent (self, student):
+    def removeStudent (self, student):
         self.students.remove(student)
 
     def isFull (self):
         return self.limit == len(self.students)
+
+    def donePrerequisite (self, strPrereq):
+        return strPrereq in self.prerequisites

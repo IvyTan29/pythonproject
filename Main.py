@@ -47,6 +47,7 @@ while use:
             print ("\t\t[2] Add Class")
             print ("\t\t[3] Remove Class")
             admin_dict = {2 : enlistment.getCurrentUser().addClass, 3 : enlistment.getCurrentUser().removeClass, 1: enlistment.viewClasses, 4: enlistment.LogInPage}
+            
         elif (isinstance(enlistment.getCurrentUser(),Student)):
             print ("\t\t[2] Take Class")
             print ("\t\t[3] Drop Class")
@@ -77,9 +78,15 @@ while use:
             student_dict[int(ans)](enlistment.getClasses()[int(choice-1)])
             
         elif (isinstance(enlistment.getCurrentUser(),Admin)):
+            if (ans == '4'):
+                print("Log-out successful!")
+                enlistment.logout()
             admin_dict[int(ans)]()
 
         elif (isinstance(enlistment.getCurrentUser(),Student)):
+            if (ans == '4'):
+                print("Log-out successful!")
+                enlistment.logout()
             student_dict[int(ans)]()
 
         pause()

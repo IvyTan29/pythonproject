@@ -13,6 +13,9 @@ class Enlistment:
             self.currentUser = self.users[index]
             return True
 
+    def logout (self):
+        self.currentUser = ""
+
     def getClasses (self):
         return self.classes
 
