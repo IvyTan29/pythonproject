@@ -12,3 +12,4 @@ class User:
 
     def getPassword(self) :
         return self.password
+
