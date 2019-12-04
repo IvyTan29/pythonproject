@@ -3,5 +3,6 @@ class Student(User):
 
     def takeClass (self, subject):
         self.classes.append(subject)
+        
     def dropClass (self, subject):
         self.classes.remove(subject)
