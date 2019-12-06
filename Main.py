@@ -40,54 +40,89 @@ while use:
         clear()
 
         print ("\t\t\tMenu")
-        print ("\t\t[1] View All Classes")
+        print ("\t\t[1] View All Classes Available")
 
         
         if (isinstance(enlistment.getCurrentUser(),Admin)):
             print ("\t\t[2] Add Class")
             print ("\t\t[3] Remove Class")
+            print ("\t\t[4] Log-Out")
+            print ("\t\t[5] Exit")
             admin_dict = {2 : enlistment.getCurrentUser().addClass, 3 : enlistment.getCurrentUser().removeClass, 1: enlistment.viewClasses, 4: enlistment.LogInPage}
             
         elif (isinstance(enlistment.getCurrentUser(),Student)):
             print ("\t\t[2] Take Class")
             print ("\t\t[3] Drop Class")
-            student_dict = {2 : enlistment.getCurrentUser().takeClass, 3 : enlistment.getCurrentUser().dropClass,1: enlistment.viewClasses, 4: enlistment.LogInPage}
-            
-        print ("\t\t[4] Log-Out")
-        print ("\t\t[5] Exit")
+            print ("\t\t[4] Add Class Already Taken")
+            print ("\t\t[5] View Current Classes")
+            print ("\t\t[6] View Classes Taken")
+            print ("\t\t[7] Log-Out")
+            print ("\t\t[8] Exit")
+            student_dict = {2 : enlistment.getCurrentUser().takeClass, 3 : enlistment.getCurrentUser().dropClass,1: enlistment.viewClasses, 7: enlistment.LogInPage, 5: enlistment.getCurrentUser().viewClasses, 4: enlistment.getCurrentUser().addPrerequisite, 6: enlistment.getCurrentUser().PrereqView}
 
         ans = input("Choice of action: ")
 
-        while not(ans >= '1' and ans <= '5'):
-            print ("Invalid Input! Try again.")
-            ans = input("Choice of action: ")
+        if (isinstance(enlistment.getCurrentUser(),Admin)):
+            while not(ans >= '1' and ans <= '5'):
+                print ("Invalid Input! Try again.")
+                ans = input("Choice of action: ")
+        elif (isinstance(enlistment.getCurrentUser(),Student)):
+            while not(ans >= '1' and ans <= '8'):
+                print ("Invalid Input! Try again.")
+                ans = input("Choice of action: ")
 
         clear()
 
-        if (ans == '5'):
-            menu = False
+        if (isinstance(enlistment.getCurrentUser(),Admin) and (ans == '2' or ans == '3')):
+            admin_dict[int(ans)](enlistment)
 
         elif (isinstance(enlistment.getCurrentUser(),Student) and (ans == '2' or ans == '3')):
-            enlistment.viewClasses()
-            choice =print ("\nChoose classes: ")
 
-            while not(ans >= '1' and ans <= str(len(enlistment.getClasses()))):
-                print ("Invalid Input! Try again.")
-                choice = print ("\nChoose classes: ")
+            if (ans == '2'):
+                enlistment.viewClasses()
+                if (len(enlistment.getClasses()) != 0):
 
-            student_dict[int(ans)](enlistment.getClasses()[int(choice-1)])
+                    choice = input ("\nChoose class: ")
+    
+                    while not(choice >= '1' and choice <= str(len(enlistment.getClasses()))):
+                        print ("Invalid Input! Try again.")
+                        choice = input ("\nChoose class: ")
+
+                    student_dict[int(ans)](enlistment.getClasses()[int(choice)-1])
+
+            else : 
+                enlistment.getCurrentUser().viewClasses()
+                if (len(enlistment.getCurrentUser().getClasses()) != 0):
+
+                    choice = input ("\nChoose class: ")
+    
+                    while not(choice >= '1' and choice <= str(len(enlistment.getCurrentUser().getClasses()))):
+                        print ("Invalid Input! Try again.")
+                        choice = input ("\nChoose class: ")
+                    
+                    student_dict[int(ans)](enlistment.getClasses()[int(choice)-1])  
             
         elif (isinstance(enlistment.getCurrentUser(),Admin)):
             if (ans == '4'):
                 print("Log-out successful!")
                 enlistment.logout()
-            admin_dict[int(ans)]()
+                pause()
+                clear()
+            if (ans == '5'):
+                menu = False
+            if (ans != '5'):
+                admin_dict[int(ans)]()
 
         elif (isinstance(enlistment.getCurrentUser(),Student)):
-            if (ans == '4'):
+            if (ans == '7'):
                 print("Log-out successful!")
                 enlistment.logout()
-            student_dict[int(ans)]()
+                pause()
+                clear()
+            if (ans == '8'):
+                menu = False
+            if (ans != '8'):
+                student_dict[int(ans)]()
 
         pause()
 

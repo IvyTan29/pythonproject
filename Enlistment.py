@@ -28,6 +28,12 @@ class Enlistment:
     def setCurrentUser (self, user):
         self.currentUser = user
 
+    def addClass (self, subject):
+        self.classes.append(subject)
+
+    def removeClass (self, subject):
+        self.classes.remove(subject)
+
     def addUser (self, user):
         self.users.append(user)
 
@@ -60,6 +66,7 @@ class Enlistment:
             print ("Proceed to the initial registration part.")
 
         if (ans.lower() == 'y'):
+            print("\nCreating New User...")
             usertype = input ("\nAre you an admin or student? (a/s) ")
 
             while not(usertype.lower() == 'a' or usertype.lower() == 's'):
@@ -82,11 +89,10 @@ class Enlistment:
             
             print ("Log-in successful!")
 
-    def viewClasses (self):
-        i = 1
+    def viewClasses (self):    
         if (len(self.classes) == 0):
             print ("No classes to display.")
         
         else :
             for i in range(len(self.classes)):
-                print ("\t\t[",i,"] ", self.classes[i-1])
+                print ("\t\t[",(i+1),"] ", self.classes[i])
