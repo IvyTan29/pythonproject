@@ -54,7 +54,7 @@ while use:
             print ("\t\t[2] Take Class")
             print ("\t\t[3] Drop Class")
             print ("\t\t[4] Add Class Already Taken")
-            print ("\t\t[5] View Current Classes")
+            print ("\t\t[5] View Current Cart")
             print ("\t\t[6] View Classes Taken")
             print ("\t\t[7] Log-Out")
             print ("\t\t[8] Exit")
