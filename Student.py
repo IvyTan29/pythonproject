@@ -20,18 +20,24 @@ class Student(User):
         return found
 
     def takeClass (self, subject):
-        if (subject in self.classes):
-            print ("You're currently taking this class!")
+        try:
+            if (subject in self.classes):
+                print ("You're currently taking this class!")
 
-        elif (subject.isFull()):
-            print ("Class is full!")
+            
+            elif (subject.isFull()):
+                print ("Class is full!")
 
-        elif (not(self.PrereqCompleted(subject.getPrerequisites()))):
-            print ("Prerequisites have not been taken yet!")
+            elif (not(self.PrereqCompleted(subject.getPrerequisites()))):
+                print ("Prerequisites have not been taken yet!")
 
-        else:
-            self.classes.append(subject)
-            subject.addStudent(self)
+            else:
+                self.classes.append(subject)
+                subject.addStudent(self)
+        
+        except ValueError:
+            print("The limit assigned for this class is not in numbers. Please contact the Admin to fix the problem.")
+            print ("Adding this class is currently not possible.")
 
     def dropClass (self, subject):
         self.classes.remove(subject)
